@@ -6,8 +6,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentelella Alela! | </title>
+    <?php require_once("config.php");?>
+    <title>Projects</title>
 
     <!-- Bootstrap -->
     <link href="../vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -43,11 +43,11 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="images/user.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>Tri Ninh</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -105,7 +105,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/user.png" alt="">Tri Ninh
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -124,12 +124,12 @@
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
+
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
                       <a>
-                        <span class="image"><img src="images/img.jpg" alt="Profile Image" /></span>
+                        <span class="image"><img src="images/user.png" alt="Profile Image" /></span>
                         <span>
                           <span>John Smith</span>
                           <span class="time">3 mins ago</span>
@@ -196,9 +196,9 @@
           <!-- top tiles -->
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-              <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-              <div class="count">2500</div>
-              <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+              <span class="count_top"><i class="fa fa-user"></i> Total Testers</span>
+              <div class="count">5</div>
+              <span class="count_bottom"><i class="green">15% </i> From last Week</span>
             </div>
           </div>
           <div class="row">
@@ -232,9 +232,9 @@
                     <table class="table table-striped jambo_table bulk_action">
                       <thead>
                         <tr class="headings">
-                          <!-- <th>
+                          <th>
                             <input type="checkbox" id="check-all" class="flat">
-                          </th> -->
+                          </th>
                           <th class="column-title">ID </th>
                           <th class="column-title">Name </th>
                           <th class="column-title">Description </th>
@@ -385,36 +385,22 @@
                           </td>
                         </tr> -->
                         <?php
-                      //  $dbhost = $_SERVER['localhost'];
-                      //  //$dbport = $_SERVER['3306'];
-                      //  $dbname = $_SERVER['user'];
-                      //  $charset = 'utf8' ;
-                        $dbhost  = 'localhost';
-                        $dbname = 'tester_mangement';
-                        $charset = 'utf8';
-                        $dsn = "mysql:host={$dbhost};dbname={$dbname};charset={$charset}";
-                        $username = 'root';
-                        $password = 'password';
-
-                          try {
-                              $dbh = new PDO($dsn, $username, $password);
-                              $dbh->setAttribute(PDO::ATTR_ERRMODE,
-                                                        PDO::ERRMODE_EXCEPTION);
+                              $dbh = getPDOConnection();
                               $query = "SELECT * FROM tbl_projects";
                               $data = $dbh->query($query);
                               $data->setFetchMode(PDO::FETCH_ASSOC);
 
                               foreach($data as $row) {
-                                echo ' <tr>';
+                                echo ' <tr>
+                                <td class="a-center ">
+                                  <input type="checkbox" class="flat" name="table_records">
+                                </td>';
                                 foreach($row as $name => $value){
                                       echo '<td class=\"col-md-2\">' . $value . '</td>';
                               }
-                              echo '</tr>';
+                              echo '</tr> ';
                             }
-                            }catch (PDOException $e) {
-                                print "Error!: " . $e->getMessage() . "<br/>";
-                                die();
-                                  }
+
                             ?>
                       </tbody>
                     </table>
@@ -430,7 +416,7 @@
     <!-- footer content -->
     <footer>
       <div class="pull-right">
-        Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+      Community Tester Management
       </div>
       <div class="clearfix"></div>
     </footer>

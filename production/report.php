@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+  <?php require_once("config.php");?>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -43,11 +44,11 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="images/user.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>Tri Ninh</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -105,14 +106,14 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/user.png" alt="">Tri Ninh
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
                     <li><a href="javascript:;"> Profile</a></li>
                     <li>
                       <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
+                        <!-- <span class="badge bg-red pull-right">50%</span> -->
                         <span>Settings</span>
                       </a>
                     </li>
@@ -124,7 +125,7 @@
                 <li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
-                    <span class="badge bg-green">6</span>
+                    <!-- <span class="badge bg-green">6</span> -->
                   </a>
                   <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                     <li>
@@ -197,8 +198,8 @@
           <div class="row tile_count">
             <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
               <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-              <div class="count">2500</div>
-              <span class="count_bottom"><i class="green">4% </i> From last Week</span>
+              <div class="count">5</div>
+              <span class="count_bottom"><i class="green">15% </i> From last Week</span>
             </div>
           </div>
           <div class="row">
@@ -391,17 +392,8 @@
                       //  //$dbport = $_SERVER['3306'];
                       //  $dbname = $_SERVER['user'];
                       //  $charset = 'utf8' ;
-                        $dbhost  = 'localhost';
-                        $dbname = 'tester_mangement';
-                        $charset = 'utf8';
-                        $dsn = "mysql:host={$dbhost};dbname={$dbname};charset={$charset}";
-                        $username = 'root';
-                        $password = 'password';
-
-                          try {
-                              $dbh = new PDO($dsn, $username, $password);
-                              $dbh->setAttribute(PDO::ATTR_ERRMODE,
-                                                        PDO::ERRMODE_EXCEPTION);
+                              require_once("config.php");
+                              $dbh = getPDOConnection();
                               $query = "SELECT * FROM tbl_reporting";
                               $data = $dbh->query($query);
                               $data->setFetchMode(PDO::FETCH_ASSOC);
@@ -415,10 +407,6 @@
                               }
                               echo '</tr>';
                             }
-                            }catch (PDOException $e) {
-                                print "Error!: " . $e->getMessage() . "<br/>";
-                                die();
-                                  }
                             ?>
                       </tbody>
                     </table>
