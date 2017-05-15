@@ -235,7 +235,7 @@
                           <!-- <th>
                             <input type="checkbox" id="check-all" class="flat">
                           </th> -->
-                          <!-- <th class="column-title">ID </th> -->
+                          <th class="column-title">ID </th>
                           <th class="column-title">Name </th>
                           <th class="column-title">Description </th>
                           <th class="column-title">Tool </th>
@@ -385,25 +385,33 @@
                           </td>
                         </tr> -->
                         <?php
-                              $dbh = getPDOConnection();
-                              $query = "SELECT * FROM projects order by proj_id";
-                              $data = $dbh->query($query);
-                              $data->setFetchMode(PDO::FETCH_ASSOC);
+                          try
+                            {
+                              $conn = getPDOConnection();
+                              $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                              foreach($data as $row) {
-                                // echo ' <tr>
-                                // <td class="a-center ">
-                                //   <input type="checkbox" class="flat" name="table_records">
-                                // </td>';
+                              $id = filter_input(INPUT_GET, "id");
 
-                                      echo '<tr><td class="col-md-2"><a href="index.php?id=' . $row["proj_id"] . '">'. $row["proj_name"] . '</a></td>
+                              $query = " SELECT * from projects where proj_id = :id ";
 
-                                      <td class=\"col-md-2\"><a href="#">' . $row["proj_desc"] . '</a></td>
-                                      <td class=\"col-md-2\"><a href="#">' . $row["proj_tool"] . '</a></td>
-                                      </tr>';
+                              $params = array(':id' => $id);
+                              $ps = $conn->prepare($query);
+                              $ps->execute($params);
+                              $data = $ps->fetchAll(PDO::FETCH_ASSOC);
 
 
-                            }
+                              foreach ($data as $row) {
+                                echo '<tr><td class=\"col-md-2\"><a href="index.php?id=">' . $row["proj_id"] . '</a></td>
+                                <td class=\"col-md-2\"><a href="#">' . $row["proj_name"] . '</a></td>
+                                <td class=\"col-md-2\"><a href="#">' . $row["proj_desc"] . '</a></td>
+                                <td class=\"col-md-2\"><a href="#">' . $row["proj_tool"] . '</a></td>
+                                </tr>';
+                              }
+                              }catch (Exception $ex)
+                                {
+                                      echo 'ERROR: ' . $ex->getMessage();
+                                }
+
 
                             ?>
                       </tbody>
